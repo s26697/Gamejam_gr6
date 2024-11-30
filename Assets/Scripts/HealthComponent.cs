@@ -87,4 +87,10 @@ public class HealthComponent : MonoBehaviour
 
         healthDecayPerSecond = originalHealthDecayRate;
     }
+
+    public void HealthAdd(EatRobotComponent robot)
+    {
+        maxHealth += robot.maxHpIncrease * maxHealth / 100;
+    }
+    
 }

@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour
     PlayerInputActions inputActions;
     PlayerMovement playerMovement;
     HealthComponent healthComponent;
-    GreaseComponent greaseComponent;
-    ScrapComponent scrapComponent;
     [SerializeField] LayerMask jumpPadLayer;
     [SerializeField] LayerMask swingLayer;
 
@@ -18,8 +16,6 @@ public class PlayerController : MonoBehaviour
         inputActions = new PlayerInputActions();
         playerMovement = GetComponent<PlayerMovement>();
         healthComponent = GetComponent<HealthComponent>();
-        greaseComponent = GetComponent<GreaseComponent>();
-        scrapComponent = GetComponent<ScrapComponent>();
     }
 
     void OnEnable()
@@ -45,6 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement.SetHorizontalInput(context.ReadValue<float>());
     }
+
     void OnVertical(InputAction.CallbackContext context)
     {
         playerMovement.SetVerticalInput(context.ReadValue<float>());
@@ -74,11 +71,18 @@ public class PlayerController : MonoBehaviour
 
     public void UseGrease(GreaseComponent grease)
     {
-        healthComponent.DrinkGrease(grease); 
+        healthComponent.DrinkGrease(grease);
     }
-    
+
     public void UseScrap(ScrapComponent scrap)
     {
-        healthComponent.Heal(scrap.HealValue * healthComponent.maxHealth /100);
+        healthComponent.Heal(scrap.HealValue * healthComponent.maxHealth / 100);
+    }
+
+    public void EatRobot(EatRobotComponent robot)
+    {
+        healthComponent.HealthAdd(robot);
+        healthComponent.Heal(healthComponent.maxHealth);
+        
     }
 }
