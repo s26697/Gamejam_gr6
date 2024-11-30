@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
     void OnDisable()
     {
         inputActions.Disable();
-        inputActions.Player.Horizontal.performed -= OnHorizontal;
-        inputActions.Player.Vertical.performed -= OnVertical;
+        inputActions.Player.Horizontal.performed -= OnHorizontalCanceled;
+        inputActions.Player.Vertical.performed -= OnVerticalCanceled;
     }
 
     void Update()
@@ -40,5 +40,15 @@ public class PlayerController : MonoBehaviour
     void OnVertical(InputAction.CallbackContext context)
     {
         playerMovement.SetVerticalInput(context.ReadValue<float>());
+    }
+
+    void OnHorizontalCanceled(InputAction.CallbackContext context)
+    {
+        playerMovement.SetHorizontalInput(0.0f);
+    }
+
+    void OnVerticalCanceled(InputAction.CallbackContext context)
+    {
+        playerMovement.SetVerticalInput(0.0f);
     }
 }
