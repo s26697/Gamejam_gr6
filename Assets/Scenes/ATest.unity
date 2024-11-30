@@ -830,6 +830,7 @@ GameObject:
   - component: {fileID: 2144457414}
   - component: {fileID: 2144457413}
   - component: {fileID: 2144457412}
+  - component: {fileID: 2144457418}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1012,6 +1013,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2144457418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144457411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd437054bda602b4c948d92fcadbe39e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 600
+  currentHealth: 0
+  healthBar: {fileID: 0}
+  healthDecayMultiplier: 1
+  healthDecayPerSecond: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

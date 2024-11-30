@@ -8,12 +8,11 @@ public class PlayerController : MonoBehaviour
     PlayerInputActions inputActions;
     PlayerMovement playerMovement;
     HealthComponent healthComponent;
+    GreaseComponent greaseComponent;
 
     [SerializeField] LayerMask jumpPadLayer;
     [SerializeField] LayerMask swingLayer;
 
-    HealthComponent healthComponent; 
-    GreaseComponent greaseComponent;
     private void Awake()
     {
         inputActions = new PlayerInputActions();
