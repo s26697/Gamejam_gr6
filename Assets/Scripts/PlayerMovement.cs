@@ -9,8 +9,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement Debug")]
     public Vector2 movementInput;
+    public float jumpForce;
 
     [Header("Movement Flags")]
+    [SerializeField] public bool performJump;
     [SerializeField] public bool allowedVerticalInput;
 
     [Header("Movement Settings")]
@@ -24,25 +26,37 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
     {
         Move();
+
+        if (performJump)
+        {
+            Jump();
+        }
     }
 
     private void Move()
     {
-        Vector2 velocity = new Vector2(0.0f, 0.0f);
+        Vector2 velocity = new Vector2(0.0f, rb.velocity.y); // Preserve vertical velocity
         velocity.x = movementInput.x * horizontalMoveSpeed;
 
-        if(allowedVerticalInput)
+        if (allowedVerticalInput)
         {
             velocity.y = movementInput.y * verticalMoveSpeed;
         }
 
         rb.velocity = velocity;
+    }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0f); // Reset vertical velocity for consistent jump
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        performJump = false; // Reset the jump flag
     }
 
     public void SetHorizontalInput(float x)
@@ -52,5 +66,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetVerticalInput(float y)
     {
         movementInput.y = y;
+    }
+
+    public void TriggerJump(float force)
+    {
+        jumpForce = force;
+        performJump = true;
     }
 }
