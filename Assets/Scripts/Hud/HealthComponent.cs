@@ -6,28 +6,43 @@ using UnityEngine.UI;
 public class HealthComponent : MonoBehaviour
 {
     [SerializeField] public int maxHealth = 600;
-    public int currentHealth;
+     public float currentHealth;
      [SerializeField] public Slider healthBar;
 
     public float healthDecayMultiplier = 1f; 
-    public float healthDecayPerSecond = 2f; 
-    private float  originalHealthDecayRate = 1;
+    public float healthDecayPerSecond = 10f; 
+    private float  originalHealthDecayRate;
 
     void Start()
     {
+        Debug.Log("Initializing Health Component...");
+        if (healthBar == null)
+        {
+            Debug.LogWarning("healthBar not assigned in Inspector. Attempting to find...");
+            healthBar = GetComponent<Slider>();
+        }
+
+        if (healthBar == null)
+        {
+            Debug.LogError("Failed to find or assign healthBar. Please check the setup.", this);
+        }
+        else
+        {
+            Debug.Log("Health Bar successfully assigned.");
+        }
+        originalHealthDecayRate = healthDecayPerSecond;
         currentHealth = maxHealth;
-        healthBar = GetComponent<Slider>();
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
-        healthBar = GetComponent<Slider>();
+        healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
     }
 
     void Update()
     {
-        TakeDamage(Mathf.RoundToInt(healthDecayPerSecond * healthDecayMultiplier * Time.deltaTime));
+        TakeDamage((healthDecayPerSecond * healthDecayMultiplier * Time.deltaTime));
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
 
