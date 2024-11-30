@@ -7,11 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     PlayerInputActions inputActions;
     PlayerMovement playerMovement;
-
+    HealthComponent healthComponent; 
     private void Awake()
     {
         inputActions = new PlayerInputActions();
         playerMovement = GetComponent<PlayerMovement>();
+        healthComponent = GetComponent<HealthComponent>();
     }
 
     void OnEnable()
