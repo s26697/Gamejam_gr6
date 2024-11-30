@@ -8,6 +8,8 @@ public class HealthComponent : MonoBehaviour
     [SerializeField] public int maxHealth = 600;
      public float currentHealth;
      [SerializeField] public Slider healthBar;
+     [SerializeField] public Slider OilBarSlider;
+     private GameObject OilBar;
 
     public float healthDecayMultiplier = 1f; 
     public float healthDecayPerSecond = 10f; 
@@ -15,31 +17,20 @@ public class HealthComponent : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Initializing Health Component...");
-        if (healthBar == null)
-        {
-            Debug.LogWarning("healthBar not assigned in Inspector. Attempting to find...");
-            healthBar = GetComponent<Slider>();
-        }
-
-        if (healthBar == null)
-        {
-            Debug.LogError("Failed to find or assign healthBar. Please check the setup.", this);
-        }
-        else
-        {
-            Debug.Log("Health Bar successfully assigned.");
-        }
+        healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
+        OilBarSlider= GameObject.Find("OilBar").GetComponent<Slider>();
+        OilBar = GameObject.Find("OilBar");
         originalHealthDecayRate = healthDecayPerSecond;
         currentHealth = maxHealth;
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
-        healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
+        OilBar.SetActive(false);
     }
 
     void Update()
     {
         TakeDamage((healthDecayPerSecond * healthDecayMultiplier * Time.deltaTime));
+        DecreaseOilCount();
     }
 
     public void TakeDamage(float damage)
@@ -82,15 +73,26 @@ public class HealthComponent : MonoBehaviour
         
         healthDecayPerSecond = originalHealthDecayRate * grease.decayMultiplier;
         Debug.Log("Grease applied: " + grease.name + ". Health decay reduced for " + grease.duration + " seconds.");
-
+        OilBarSlider.maxValue = grease.duration;
+        OilBarSlider.value = OilBarSlider.maxValue;
+        OilBar.SetActive(true);
         yield return new WaitForSeconds(grease.duration);
-
+        OilBar.SetActive(false);
         healthDecayPerSecond = originalHealthDecayRate;
     }
 
     public void HealthAdd(EatRobotComponent robot)
     {
         maxHealth += robot.maxHpIncrease * maxHealth / 100;
+    }
+    
+    public void DecreaseOilCount()
+    {
+        if (OilBarSlider.value <= 0)
+        {
+            OilBarSlider.value = 0;
+        }
+        OilBarSlider.value -= 1 * Time.deltaTime;
     }
     
 }
