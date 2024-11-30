@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Enable();
         inputActions.Player.Horizontal.performed += OnHorizontal;
         inputActions.Player.Vertical.performed += OnVertical;
+        inputActions.Player.Swing.performed += OnSwing;
     }
 
     void OnDisable()
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Disable();
         inputActions.Player.Horizontal.performed -= OnHorizontalCanceled;
         inputActions.Player.Vertical.performed -= OnVerticalCanceled;
+        inputActions.Player.Swing.performed -= OnSwing;
     }
 
     void Update()
@@ -57,9 +59,25 @@ public class PlayerController : MonoBehaviour
         playerMovement.SetVerticalInput(0.0f);
     }
 
+    void OnSwing(InputAction.CallbackContext context)
+    {
+        if (playerMovement.isSwinging)
+        {
+            playerMovement.StopSwing();
+        }
+        else
+        {
+            playerMovement.StartSwing();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer) & jumpPadLayer) != 0)
+        if (((1 << collision.gameObject.layer) & swingLayer) != 0)
+        {
+            playerMovement.SetSwingLocation(collision.transform.position);
+        }
+        else if (((1 << collision.gameObject.layer) & jumpPadLayer) != 0)
         {
             JumpPad jumpPad = collision.gameObject.GetComponent<JumpPad>();
             if (jumpPad != null)
@@ -86,3 +104,4 @@ public class PlayerController : MonoBehaviour
         
     }
 }
+
