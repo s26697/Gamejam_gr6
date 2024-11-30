@@ -8,11 +8,13 @@ public class PlayerController : MonoBehaviour
     PlayerInputActions inputActions;
     PlayerMovement playerMovement;
     HealthComponent healthComponent; 
+    GreaseComponent greaseComponent;
     private void Awake()
     {
         inputActions = new PlayerInputActions();
         playerMovement = GetComponent<PlayerMovement>();
         healthComponent = GetComponent<HealthComponent>();
+        greaseComponent = GetComponent<GreaseComponent>();
     }
 
     void OnEnable()
@@ -51,5 +53,10 @@ public class PlayerController : MonoBehaviour
     void OnVerticalCanceled(InputAction.CallbackContext context)
     {
         playerMovement.SetVerticalInput(0.0f);
+    }
+
+    public void UseGrease(GreaseComponent grease)
+    {
+        healthComponent.DrinkGrease(grease); 
     }
 }

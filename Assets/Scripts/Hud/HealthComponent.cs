@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
-    public int maxHealth = 600;
+    [SerializeField] public int maxHealth = 600;
     public int currentHealth;
      [SerializeField] public Slider healthBar;
 
-    public int healthDecayMultiplier = 1; 
+    public float healthDecayMultiplier = 1f; 
     public float healthDecayPerSecond = 2f; 
+    private float  originalHealthDecayRate = 1;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class HealthComponent : MonoBehaviour
         healthBar = GetComponent<Slider>();
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
+        healthBar = GetComponent<Slider>();
     }
 
     void Update()
@@ -53,5 +55,22 @@ public class HealthComponent : MonoBehaviour
     {
         Debug.Log("You died!"); 
         //Destroy(gameObject); 
+    }
+
+    public void DrinkGrease(GreaseComponent grease)
+{
+    StartCoroutine(ApplyGreaseEffect(grease));
+}
+
+    
+    private IEnumerator ApplyGreaseEffect(GreaseComponent grease)
+    {
+        
+        healthDecayPerSecond = originalHealthDecayRate * grease.decayMultiplier;
+        Debug.Log("Grease applied: " + grease.name + ". Health decay reduced for " + grease.duration + " seconds.");
+
+        yield return new WaitForSeconds(grease.duration);
+
+        healthDecayPerSecond = originalHealthDecayRate;
     }
 }
