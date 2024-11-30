@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     PlayerMovement playerMovement;
     HealthComponent healthComponent;
     GreaseComponent greaseComponent;
-
+    ScrapComponent scrapComponent;
     [SerializeField] LayerMask jumpPadLayer;
     [SerializeField] LayerMask swingLayer;
 
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         healthComponent = GetComponent<HealthComponent>();
         greaseComponent = GetComponent<GreaseComponent>();
+        scrapComponent = GetComponent<ScrapComponent>();
     }
 
     void OnEnable()
@@ -74,5 +75,10 @@ public class PlayerController : MonoBehaviour
     public void UseGrease(GreaseComponent grease)
     {
         healthComponent.DrinkGrease(grease); 
+    }
+    
+    public void UseScrap(ScrapComponent scrap)
+    {
+        healthComponent.Heal(scrap.HealValue * healthComponent.maxHealth /100);
     }
 }

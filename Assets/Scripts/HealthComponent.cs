@@ -59,7 +59,6 @@ public class HealthComponent : MonoBehaviour
     public void Heal(int healAmount)
     {
         currentHealth += healAmount;
-
         currentHealth = Mathf.Min(currentHealth, maxHealth);
 
         healthBar.value = currentHealth; 
