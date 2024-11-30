@@ -7,16 +7,22 @@ public class PlayerController : MonoBehaviour
 {
     PlayerInputActions inputActions;
     PlayerMovement playerMovement;
+<<<<<<< HEAD
     HealthComponent healthComponent;
 
     [SerializeField] LayerMask jumpPadLayer;
     [SerializeField] LayerMask swingLayer;
 
+=======
+    HealthComponent healthComponent; 
+    GreaseComponent greaseComponent;
+>>>>>>> 83e70511cd257f32c8cff27c20fdc5f1faf3efca
     private void Awake()
     {
         inputActions = new PlayerInputActions();
         playerMovement = GetComponent<PlayerMovement>();
         healthComponent = GetComponent<HealthComponent>();
+        greaseComponent = GetComponent<GreaseComponent>();
     }
 
     void OnEnable()
@@ -57,6 +63,7 @@ public class PlayerController : MonoBehaviour
         playerMovement.SetVerticalInput(0.0f);
     }
 
+<<<<<<< HEAD
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & jumpPadLayer) != 0)
@@ -67,5 +74,10 @@ public class PlayerController : MonoBehaviour
                 playerMovement.TriggerJump(jumpPad.jumpForce);
             }
         }
+=======
+    public void UseGrease(GreaseComponent grease)
+    {
+        healthComponent.DrinkGrease(grease); 
+>>>>>>> 83e70511cd257f32c8cff27c20fdc5f1faf3efca
     }
 }
