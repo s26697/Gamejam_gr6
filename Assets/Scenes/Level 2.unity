@@ -2591,6 +2591,106 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7733838916364862420, guid: 63368d7d0997d314bb32673c90a93cac, type: 3}
   m_PrefabInstance: {fileID: 1972080509}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &590876947
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3228323332473396505, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: dialog.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228323332473396505, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: dialog.Array.data[0]
+      value: Another fool chooses the path of hollow glory.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228323332473396505, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: dialog.Array.data[1]
+      value: Instead of helping those like themselves, they go to test their fate
+        and waste their life.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228323332473396505, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: dialog.Array.data[2]
+      value: "I didn\u2019t set out on my journey to test my fate, but to stop people
+        like you."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228323332473396505, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: dialog.Array.data[3]
+      value: "Now that I\u2019m a wreck and there\u2019s nothing left of me or my
+        efforts."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228323332473396505, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: dialog.Array.data[4]
+      value: "DO WHAT YOU WANT, that\u2019s all I have left to say."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228323332473396505, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: dialog.Array.data[5]
+      value: "You\u2019ve won your foolish battle."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636646974025579161, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_Name
+      value: NPC1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -235.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -419.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862299938227736971, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086849171642608043, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_fontSize
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086849171642608043, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086849171642608043, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6691bf23d431b1b46806f2cbf5e77379, type: 3}
 --- !u!1001 &598652342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6633,11 +6733,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4608656047266725210, guid: 26f580ff05833264081396e1325f5bab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -258.8
+      value: -267.3
       objectReference: {fileID: 0}
     - target: {fileID: 4608656047266725210, guid: 26f580ff05833264081396e1325f5bab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -417.9
+      value: -418.5
       objectReference: {fileID: 0}
     - target: {fileID: 4608656047266725210, guid: 26f580ff05833264081396e1325f5bab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7788,7 +7888,7 @@ Transform:
   m_GameObject: {fileID: 1948917606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -258.8, y: -407.9, z: -10}
+  m_LocalPosition: {x: -267.3, y: -408.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8560,3 +8660,4 @@ SceneRoots:
   - {fileID: 464320089}
   - {fileID: 37765975}
   - {fileID: 637513641}
+  - {fileID: 590876947}

@@ -295,8 +295,16 @@ MonoBehaviour:
   isInteractable: 0
   typeDelay: 0
   dialog:
-  - hello there
-  - im gay
+  - Listen, young one, I can see there's still much ahead of you, and a spark shines
+    bright in your eyes.
+  - "You\u2019ve got a good look in them."
+  - "As for me, I\u2019ve been sitting here for years and can\u2019t even move my
+    rusty backside from this spot."
+  - "As for me, I\u2019ve been sitting here for years and can\u2019t even move my
+    rusty backside from this spot."
+  - So, take my parts.
+  - "They\u2019ll surely be more useful to you in achieving something greater than
+    just sitting in one place and falling apart."
   dialogPanel: {fileID: 7061371494247224499}
   dialogText: {fileID: 2357179115123147619}
   continueButton: {fileID: 8503812469838915933}
@@ -526,10 +534,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

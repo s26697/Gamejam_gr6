@@ -370,8 +370,14 @@ MonoBehaviour:
   isInteractable: 0
   typeDelay: 0
   dialog:
-  - hello there
-  - im gay
+  - Another fool chooses the path of hollow glory.
+  - Instead of helping those like themselves, they go to test their fate and waste
+    their life.
+  - "I didn\u2019t set out on my journey to test my fate, but to stop people like
+    you."
+  - "Now that I\u2019m a wreck and there\u2019s nothing left of me or my efforts."
+  - "DO WHAT YOU WANT, that\u2019s all I have left to say."
+  - "You\u2019ve won your foolish battle."
   dialogPanel: {fileID: 6641892921296089931}
   dialogText: {fileID: 7086849171642608043}
   continueButton: {fileID: 8530476228169276616}
@@ -601,10 +607,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
