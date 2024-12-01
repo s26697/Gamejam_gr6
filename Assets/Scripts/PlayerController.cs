@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask jumpPadLayer;
     [SerializeField] LayerMask bouncePadLayer;
     [SerializeField] LayerMask swingLayer;
-    [SerializeField] LayerMask climbingLayer;
 
     [SerializeField] bool bouncePadActive;
     [SerializeField] bool ableToTrigger;
@@ -20,7 +19,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float holdTime;
     [SerializeField] float jjumpForce = 25.0f;
     [SerializeField] float maxHoldTime;
-    
 
     Animator anim;
 
@@ -136,10 +134,6 @@ public class PlayerController : MonoBehaviour
             {
                 playerMovement.TriggerJump(jumpPad.jumpForce);
             }
-        }else if (((1 << collision.gameObject.layer) & climbingLayer) != 0 )
-        {
-            playerMovement.allowedVerticalInput = true;
-            
         }
     }
 
@@ -149,11 +143,6 @@ public class PlayerController : MonoBehaviour
         {
             bouncePadActive = false;
             ableToTrigger = false;
-        }
-        if (((1 << collision.gameObject.layer) & climbingLayer) != 0 )
-        {
-            playerMovement.allowedVerticalInput = false;
-            
         }
     }
 
