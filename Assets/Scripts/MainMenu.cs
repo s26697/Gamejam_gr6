@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     
     public void PlayClicked() {
         _mainView.SetActive(false);
-        LoadLevel("JanTest");
+        LoadLevel("Level 1");
     }
 
     public void ExitClicked() {
