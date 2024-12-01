@@ -64,14 +64,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector2 velocity = new Vector2(movementInput.x * horizontalMoveSpeed, rb.velocity.y);
+        // Calculate the desired velocity based on input
+        Vector2 targetVelocity = new Vector2(movementInput.x * horizontalMoveSpeed, rb.velocity.y);
 
+        // Smoothly change the current velocity towards the target velocity
+        Vector2 velocityDifference = targetVelocity - rb.velocity;
+
+        // Apply a force in the direction of the velocity difference
+        rb.AddForce(velocityDifference * 10f, ForceMode2D.Force); // You can adjust the multiplier for smoothness
+
+        // Apply vertical input if allowed
         if (allowedVerticalInput)
         {
-            velocity.y = movementInput.y * verticalMoveSpeed;
+            Vector2 verticalForce = new Vector2(0f, movementInput.y * verticalMoveSpeed);
+            rb.AddForce(verticalForce, ForceMode2D.Force);
         }
-
-        rb.velocity = velocity;
     }
 
     private void Jump()
