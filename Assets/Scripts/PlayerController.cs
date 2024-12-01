@@ -20,11 +20,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jjumpForce = 25.0f;
     [SerializeField] float maxHoldTime;
 
+    Animator anim;
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
         playerMovement = GetComponent<PlayerMovement>();
         healthComponent = GetComponent<HealthComponent>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -67,6 +70,15 @@ public class PlayerController : MonoBehaviour
     void OnVertical(InputAction.CallbackContext context)
     {
         float state = context.ReadValue<float>();
+        if(state == -1) // Tutaj jednak xDDDDD
+        {
+            anim.SetBool("isCrouching", true);
+            transform.position -= new Vector3(0, 1, 0);
+        }
+        else
+        {
+            anim.SetBool("isCrouching", false);
+        }
         playerMovement.SetVerticalInput(state);
         if (lastButtonState != state)
         {

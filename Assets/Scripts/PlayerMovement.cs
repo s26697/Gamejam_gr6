@@ -34,9 +34,26 @@ public class PlayerMovement : MonoBehaviour
     private float maxImpulseTime = 0.5f; // Duration of impulse application (seconds)
     private Vector2 impulseDirection;
 
+    Animator anim;
+    private bool isMoving = false;
+    private bool _isFacingRight = true;
+    public bool IsFacingRight
+    {
+        get => _isFacingRight;
+        private set
+        {
+            if (_isFacingRight != value)
+            {
+                transform.localScale *= new Vector2(-1, 1);
+                _isFacingRight = value;
+            }
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -60,6 +77,17 @@ public class PlayerMovement : MonoBehaviour
                 isImpulseApplied = false;
             }
         }
+
+        if(rb.velocity.x == 0)
+        {
+            isMoving = false;
+        }
+        else
+        {
+            isMoving = true;
+        }
+
+        anim.SetBool("isMoving", isMoving);
     }
 
     private void Move()
@@ -71,7 +99,21 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = movementInput.y * verticalMoveSpeed;
         }
 
+        SetFacingDirection(movementInput);
         rb.velocity = velocity;
+    }
+
+    private void SetFacingDirection(Vector2 vector2)
+    {
+
+        if (vector2.x > 0 && !IsFacingRight)
+        {
+            IsFacingRight = true;
+        }
+        else if (vector2.x < 0 && IsFacingRight)
+        {
+            IsFacingRight = false;
+        }
     }
 
     private void Jump()
