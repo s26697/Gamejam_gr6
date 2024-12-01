@@ -110,13 +110,8 @@ GameObject:
   - component: {fileID: 2271150019542400539}
   - component: {fileID: 3512234416040916382}
   - component: {fileID: 8848623874007223084}
-<<<<<<< Updated upstream
   - component: {fileID: 4847627416236119868}
   - component: {fileID: 5844984472636484843}
-=======
-  - component: {fileID: 169609239653350334}
-  - component: {fileID: 8443053156186750985}
->>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Playermodel
   m_TagString: Player
@@ -334,11 +329,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.1272259, y: 4.5015965}
   m_EdgeRadius: 0
-<<<<<<< Updated upstream
 --- !u!111 &4847627416236119868
-=======
---- !u!111 &169609239653350334
->>>>>>> Stashed changes
 Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -353,11 +344,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
-<<<<<<< Updated upstream
 --- !u!95 &5844984472636484843
-=======
---- !u!95 &8443053156186750985
->>>>>>> Stashed changes
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
