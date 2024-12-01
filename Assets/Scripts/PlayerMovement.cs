@@ -88,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         anim.SetBool("isMoving", isMoving);
+
+        anim.SetBool("isSwinging", isSwinging);
     }
 
     private void Move()

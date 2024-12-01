@@ -21,9 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jjumpForce = 25.0f;
     [SerializeField] float maxHoldTime;
 
-    LineRenderer renderer;
 
     Animator anim;
+    LineRenderer renderer;
 
     private void Awake()
     {
@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
         {
             renderer.positionCount = 0;
         }
+
     }
 
     void OnEnable()
@@ -96,9 +97,25 @@ public class PlayerController : MonoBehaviour
     void OnVertical(InputAction.CallbackContext context)
     {
         float state = context.ReadValue<float>();
+        if (playerMovement.allowedVerticalInput && state == 1)
+        {
+            anim.SetBool("isClimbing", true);
+        }
+        else
+        {
+            anim.SetBool("isClimbing", false);
+        }
         if (state == -1) // Tutaj jednak xDDDDD
         {
-            anim.SetBool("isCrouching", true);
+            if (!playerMovement.allowedVerticalInput)
+            {
+                anim.SetBool("isCrouching", true);
+            }
+            else
+            {
+                anim.SetBool("isClimbing", true);
+            }
+
             //transform.position -= new Vector3(0, 1, 0);
         }
         else

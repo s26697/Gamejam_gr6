@@ -54,7 +54,7 @@ public class SeeThroughBody : MonoBehaviour
                 tmp.a = alpha;
                 sr.color = tmp;
 
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }
