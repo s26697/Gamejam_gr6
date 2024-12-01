@@ -61,13 +61,18 @@ public class PlayerController : MonoBehaviour
 
     void OnSwing(InputAction.CallbackContext context)
     {
+        float distanceToSwingAnchor = Vector2.Distance(playerMovement.transform.position, playerMovement.swingLocation);
+
         if (playerMovement.isSwinging)
         {
             playerMovement.StopSwing();
         }
         else
         {
-            playerMovement.StartSwing();
+            if (distanceToSwingAnchor < playerMovement.maxSwingLength)
+            {
+                playerMovement.StartSwing();
+            }
         }
     }
 
@@ -75,7 +80,14 @@ public class PlayerController : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & swingLayer) != 0)
         {
-            playerMovement.SetSwingLocation(collision.transform.position);
+            CircleCollider2D swingCollider = collision.GetComponent<CircleCollider2D>();
+            if (swingCollider != null)
+            {
+                Vector2 anchorLocation = collision.transform.position;
+                float maxLength = swingCollider.radius * swingCollider.transform.lossyScale.x;
+
+                playerMovement.SetSwingParameters(anchorLocation, maxLength);
+            }
         }
         else if (((1 << collision.gameObject.layer) & jumpPadLayer) != 0)
         {
@@ -86,6 +98,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
 
     public void UseGrease(GreaseComponent grease)
     {

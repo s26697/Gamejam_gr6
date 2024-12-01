@@ -6,35 +6,40 @@ public class PlayerMovement : MonoBehaviour
 {
     protected Rigidbody2D rb;
 
-    [Header("Movement Debug")]
     public Vector2 movementInput;
     public float jumpForce;
-    public Vector2 swingLocation;
 
-    [Header("Movement Flags")]
     [SerializeField] public bool performJump;
     [SerializeField] public bool allowedVerticalInput;
     [SerializeField] public bool isSwinging;
 
-    [Header("Movement Settings")]
     [SerializeField] public float horizontalMoveSpeed;
     [SerializeField] public float verticalMoveSpeed;
 
-    [Header("Swing Settings")]
-    [SerializeField] public float swingGravity = 9.8f; // Gravitational force for swinging
-    [SerializeField] public float angularDamping = 0.99f; // Damping factor for realistic motion
-    [SerializeField] public float inputTorque = 2f; // Torque added by player input
+    [SerializeField] public float swingGravity;
+    [SerializeField] public float angularDamping;
+    [SerializeField] public float inputTorque;
 
-    private float currentAngle; // Current angle relative to vertical
-    private float angularVelocity; // Angular velocity for the pendulum
-    private float swingLength; // Dynamic distance from player to anchor (pendulum length)
+    public Vector2 swingLocation;
+    public float maxSwingLength;
+    protected float currentAngle;
+    protected float angularVelocity;
+
+    [SerializeField] public float impulseStrength = 10f;
+    private Vector2 releaseVelocity;
+    private bool isImpulseApplied = false;
+
+    // New variables for smooth impulse
+    private float impulseTime = 0f; // Time during which impulse is applied
+    private float maxImpulseTime = 0.5f; // Duration of impulse application (seconds)
+    private Vector2 impulseDirection;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isSwinging)
         {
@@ -42,42 +47,23 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // Regular movement if not swinging
-            HandleMovement();
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (!isSwinging)
-        {
             Move();
             if (performJump)
             {
                 Jump();
             }
-        }
-    }
 
-    private void HandleMovement()
-    {
-        // Update horizontal input for regular movement when not swinging
-        if (!isSwinging)
-        {
-            Vector2 velocity = new Vector2(movementInput.x * horizontalMoveSpeed, rb.velocity.y);
-
-            if (allowedVerticalInput)
+            // Apply gradual impulse after swinging stops
+            if (isImpulseApplied)
             {
-                velocity.y = movementInput.y * verticalMoveSpeed;
+                ApplyGradualImpulseOnStop();
+                isImpulseApplied = false;
             }
-
-            rb.velocity = velocity;
         }
     }
 
     private void Move()
     {
-        // Regular movement here
         Vector2 velocity = new Vector2(movementInput.x * horizontalMoveSpeed, rb.velocity.y);
 
         if (allowedVerticalInput)
@@ -110,67 +96,84 @@ public class PlayerMovement : MonoBehaviour
         jumpForce = force;
         performJump = true;
     }
-
-    public void SetSwingLocation(Vector2 location)
+    public void SetSwingParameters(Vector2 location, float maxLength)
     {
         swingLocation = location;
-        UpdateSwingLength();
-        Vector2 toAnchor = (Vector2)transform.position - swingLocation;
-        currentAngle = Mathf.Atan2(toAnchor.x, -toAnchor.y); // Calculate initial angle
+        maxSwingLength = maxLength;
     }
 
     public void StartSwing()
     {
-        if (!isSwinging)
-        {
-            isSwinging = true;
-            rb.bodyType = RigidbodyType2D.Kinematic; // Use kinematic body to control motion manually
-            rb.velocity = Vector2.zero; // Reset velocity when starting to swing
-        }
+        isSwinging = true;
     }
 
     public void StopSwing()
     {
-        if (isSwinging)
-        {
-            isSwinging = false;
-            rb.bodyType = RigidbodyType2D.Dynamic; // Return to regular physics behavior
-            rb.velocity = new Vector2(
-                angularVelocity * swingLength * Mathf.Cos(currentAngle),
-                angularVelocity * swingLength * Mathf.Sin(currentAngle)
-            ); // Preserve momentum when exiting swing
-        }
+        // Mark the impulse as ready to be applied gradually
+        isImpulseApplied = true;
+        impulseTime = 0f; // Reset the impulse time
+        isSwinging = false;
     }
 
     private void HandleSwinging()
     {
-        // Recalculate the swing length based on the current distance from the anchor
-        UpdateSwingLength();
+        Vector2 toAnchor = swingLocation - rb.position;
+        float swingLength = toAnchor.magnitude;
 
-        // Apply pendulum physics
-        float gravityForce = swingGravity * Mathf.Sin(currentAngle); // Restoring force (pendulum)
-        angularVelocity += -gravityForce / swingLength * Time.deltaTime; // Update angular velocity
-        angularVelocity *= angularDamping; // Apply angular damping for smooth motion
+        // Ensure that the rope length stays constant
+        if (swingLength > maxSwingLength)
+        {
+            toAnchor = toAnchor.normalized * maxSwingLength;  // Correct the player's position to stay on the rope length
+            rb.position = swingLocation - toAnchor;
+            swingLength = maxSwingLength;
+        }
 
-        // Apply horizontal input as torque to influence swinging
-        angularVelocity += movementInput.x * inputTorque * Time.deltaTime;
+        float angleFromY = Mathf.Atan2(toAnchor.x, -toAnchor.y);
+        float tangentialForce = -swingGravity * Mathf.Sin(angleFromY);
 
-        // Update angle (change in angle due to velocity)
-        currentAngle += angularVelocity * Time.deltaTime;
+        angularVelocity += (tangentialForce / swingLength) * Time.fixedDeltaTime;
+        angularVelocity *= (1 - angularDamping * Time.fixedDeltaTime);
 
-        // Calculate new position based on the angle
-        Vector2 offset = new Vector2(
-            Mathf.Sin(currentAngle),
-            -Mathf.Cos(currentAngle)
-        ) * swingLength;
+        float inputTorqueAdjusted = -movementInput.x * inputTorque * Time.fixedDeltaTime;
+        if (Mathf.Abs(angularVelocity) < 10f)
+        {
+            angularVelocity += inputTorqueAdjusted;
+        }
 
-        // Update player position to follow the swing
-        rb.position = swingLocation + offset;
+        Vector2 tangentialDirection = new Vector2(-toAnchor.y, toAnchor.x).normalized;
+        Vector2 tangentialVelocity = tangentialDirection * angularVelocity * swingLength;
+
+        rb.velocity = tangentialVelocity;
+
+        Vector2 tensionForce = toAnchor.normalized * (swingGravity * Mathf.Cos(angleFromY) - Vector2.Dot(rb.velocity, toAnchor) / swingLength);
+        rb.AddForce(tensionForce);
     }
 
-    // This method updates the swing length dynamically based on the current distance to the anchor
-    private void UpdateSwingLength()
+    private void ApplyGradualImpulseOnStop()
     {
-        swingLength = Vector2.Distance(transform.position, swingLocation);
+        // When the player stops swinging, capture the current velocity.
+        Vector2 currentVelocity = rb.velocity;
+
+        // Calculate the direction of the momentum (both horizontal and vertical).
+        Vector2 releaseDirection = currentVelocity.normalized;  // Normalize the direction of release
+
+        // Calculate the tangential impulse based on the player's velocity at release
+        Vector2 tangentialImpulse = releaseDirection * impulseStrength;
+
+        // Add upward component proportional to the vertical velocity at release
+        float upwardImpulse = Mathf.Abs(currentVelocity.y) * 0.5f;
+        tangentialImpulse.y += upwardImpulse;  // Add some upward boost for realism
+
+        // Gradually apply the impulse based on time (simulating energy transfer)
+        if (impulseTime < maxImpulseTime)
+        {
+            impulseTime += Time.fixedDeltaTime;  // Increase time with each FixedUpdate
+
+            // Smoothly interpolate between 0 and the full impulse strength
+            float lerpFactor = impulseTime / maxImpulseTime;
+
+            // Apply the gradual impulse
+            rb.AddForce(tangentialImpulse * lerpFactor, ForceMode2D.Force);
+        }
     }
 }
