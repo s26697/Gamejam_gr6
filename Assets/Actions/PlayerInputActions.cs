@@ -134,6 +134,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Skip Intro"",
+            ""id"": ""0904c1a8-58a1-4037-8be3-1ddf439bbd76"",
+            ""actions"": [
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""9b9279bd-5735-4bb3-aa10-e6dc2ad6074a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d1e1ce67-c623-4d92-9238-9ff6ac6f813d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -143,6 +171,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Horizontal = m_Player.FindAction("Horizontal", throwIfNotFound: true);
         m_Player_Vertical = m_Player.FindAction("Vertical", throwIfNotFound: true);
         m_Player_Swing = m_Player.FindAction("Swing", throwIfNotFound: true);
+        // Skip Intro
+        m_SkipIntro = asset.FindActionMap("Skip Intro", throwIfNotFound: true);
+        m_SkipIntro_Skip = m_SkipIntro.FindAction("Skip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,10 +293,60 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Skip Intro
+    private readonly InputActionMap m_SkipIntro;
+    private List<ISkipIntroActions> m_SkipIntroActionsCallbackInterfaces = new List<ISkipIntroActions>();
+    private readonly InputAction m_SkipIntro_Skip;
+    public struct SkipIntroActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public SkipIntroActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Skip => m_Wrapper.m_SkipIntro_Skip;
+        public InputActionMap Get() { return m_Wrapper.m_SkipIntro; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SkipIntroActions set) { return set.Get(); }
+        public void AddCallbacks(ISkipIntroActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SkipIntroActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SkipIntroActionsCallbackInterfaces.Add(instance);
+            @Skip.started += instance.OnSkip;
+            @Skip.performed += instance.OnSkip;
+            @Skip.canceled += instance.OnSkip;
+        }
+
+        private void UnregisterCallbacks(ISkipIntroActions instance)
+        {
+            @Skip.started -= instance.OnSkip;
+            @Skip.performed -= instance.OnSkip;
+            @Skip.canceled -= instance.OnSkip;
+        }
+
+        public void RemoveCallbacks(ISkipIntroActions instance)
+        {
+            if (m_Wrapper.m_SkipIntroActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ISkipIntroActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SkipIntroActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SkipIntroActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public SkipIntroActions @SkipIntro => new SkipIntroActions(this);
     public interface IPlayerActions
     {
         void OnHorizontal(InputAction.CallbackContext context);
         void OnVertical(InputAction.CallbackContext context);
         void OnSwing(InputAction.CallbackContext context);
+    }
+    public interface ISkipIntroActions
+    {
+        void OnSkip(InputAction.CallbackContext context);
     }
 }

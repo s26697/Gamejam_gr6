@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 7a6f524261030d94883c5c2eb661924f
   - enabled: 1
+    path: Assets/Scenes/NapisyStartowe.unity
+    guid: 6d2240986cfa0db40a03741e3894a29c
+  - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: fa6f9986521b3594890cc6f9bbb6ca9c
   - enabled: 1

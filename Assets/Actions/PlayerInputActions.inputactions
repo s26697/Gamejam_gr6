@@ -112,6 +112,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Skip Intro",
+            "id": "0904c1a8-58a1-4037-8be3-1ddf439bbd76",
+            "actions": [
+                {
+                    "name": "Skip",
+                    "type": "Button",
+                    "id": "9b9279bd-5735-4bb3-aa10-e6dc2ad6074a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d1e1ce67-c623-4d92-9238-9ff6ac6f813d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
