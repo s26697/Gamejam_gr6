@@ -427,10 +427,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementInput: {x: 0, y: 0}
   jumpForce: 0
+  swingLocation: {x: 0, y: 0}
   performJump: 0
   allowedVerticalInput: 0
+  isSwinging: 0
   horizontalMoveSpeed: 5
   verticalMoveSpeed: 5
+  swingGravity: 9.8
+  angularDamping: 0.99
+  inputTorque: 2
 --- !u!114 &662692492
 MonoBehaviour:
   m_ObjectHideFlags: 0
