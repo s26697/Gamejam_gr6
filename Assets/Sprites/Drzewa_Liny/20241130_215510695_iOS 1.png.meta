@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 46548db16c89f2948a4556b5a9181465
+guid: 78b25da9dd916ab4da7fb7e4b86f87d0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -100,13 +100,13 @@ TextureImporter:
       name: 20241130_215510695_iOS_0
       rect:
         serializedVersion: 2
-        x: 89
+        x: 487
         y: 0
-        width: 1053
-        height: 1211
+        width: 166
+        height: 126
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 3, y: 0, z: 4, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
