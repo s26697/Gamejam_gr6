@@ -2120,6 +2120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Playermodel
       objectReference: {fileID: 0}
+    - target: {fileID: 8147308969182864542, guid: 45e2345e0d9eb804dbfe4eb4883ad175, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

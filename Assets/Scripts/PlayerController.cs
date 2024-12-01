@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if(state == -1) // Tutaj jednak xDDDDD
         {
             anim.SetBool("isCrouching", true);
-            transform.position -= new Vector3(0, 1, 0);
+            //transform.position -= new Vector3(0, 1, 0);
         }
         else
         {

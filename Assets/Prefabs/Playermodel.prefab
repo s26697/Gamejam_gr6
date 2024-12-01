@@ -110,6 +110,8 @@ GameObject:
   - component: {fileID: 2271150019542400539}
   - component: {fileID: 3512234416040916382}
   - component: {fileID: 8848623874007223084}
+  - component: {fileID: 4847627416236119868}
+  - component: {fileID: 5844984472636484843}
   m_Layer: 0
   m_Name: Playermodel
   m_TagString: Player
@@ -200,9 +202,18 @@ MonoBehaviour:
   jumpPadLayer:
     serializedVersion: 2
     m_Bits: 64
+  bouncePadLayer:
+    serializedVersion: 2
+    m_Bits: 0
   swingLayer:
     serializedVersion: 2
     m_Bits: 128
+  bouncePadActive: 0
+  ableToTrigger: 0
+  lastButtonState: 0
+  holdTime: 0
+  jjumpForce: 25
+  maxHoldTime: 0
 --- !u!114 &6489987828609451267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +329,42 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.1272259, y: 4.5015965}
   m_EdgeRadius: 0
+--- !u!111 &4847627416236119868
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4361727371626730503}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!95 &5844984472636484843
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4361727371626730503}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7b6277fe596321e4d9bd2c82e0baeaf6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5528353277791863037
 GameObject:
   m_ObjectHideFlags: 0
