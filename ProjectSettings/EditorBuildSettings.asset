@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 3.unity
     guid: 556bb564ba4b16d45b0d1ec6fc7a2412
+  - enabled: 1
+    path: Assets/Scenes/LastMonologue.unity
+    guid: a615444840b4d3c41bb6d7923285a391
   m_configObjects: {}
