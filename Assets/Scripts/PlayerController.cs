@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float holdTime;
     [SerializeField] float jjumpForce = 25.0f;
     [SerializeField] float maxHoldTime;
-    
+
+    LineRenderer renderer;
 
     Animator anim;
 
@@ -30,6 +31,15 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         healthComponent = GetComponent<HealthComponent>();
         anim = GetComponent<Animator>();
+
+        renderer = gameObject.AddComponent<LineRenderer>();
+
+        renderer.startWidth = 0.15f;
+        renderer.endWidth = 0.15f;
+        renderer.material = new Material(Shader.Find("Sprites/Default"));
+        renderer.startColor = new Color(24f / 255f, 50f / 255f, 92f / 255f);
+        renderer.endColor = new Color(24f / 255f, 50f / 255f, 92f / 255f);
+        renderer.positionCount = 0;
     }
 
     void Update()
@@ -45,6 +55,20 @@ public class PlayerController : MonoBehaviour
                     ableToTrigger = true;
                 }
             }
+        }
+
+        if (playerMovement.isSwinging)
+        {
+            Vector2 swingLocation = playerMovement.swingLocation;
+            Vector2 playerLocation = playerMovement.transform.position;
+
+            renderer.positionCount = 2;
+            renderer.SetPosition(0, new Vector3(playerLocation.x, playerLocation.y, 0));
+            renderer.SetPosition(1, new Vector3(swingLocation.x, swingLocation.y, 0));
+        }
+        else
+        {
+            renderer.positionCount = 0;
         }
     }
 
@@ -72,7 +96,7 @@ public class PlayerController : MonoBehaviour
     void OnVertical(InputAction.CallbackContext context)
     {
         float state = context.ReadValue<float>();
-        if(state == -1) // Tutaj jednak xDDDDD
+        if (state == -1) // Tutaj jednak xDDDDD
         {
             anim.SetBool("isCrouching", true);
             //transform.position -= new Vector3(0, 1, 0);
@@ -136,10 +160,11 @@ public class PlayerController : MonoBehaviour
             {
                 playerMovement.TriggerJump(jumpPad.jumpForce);
             }
-        }else if (((1 << collision.gameObject.layer) & climbingLayer) != 0 )
+        }
+        else if (((1 << collision.gameObject.layer) & climbingLayer) != 0)
         {
             playerMovement.allowedVerticalInput = true;
-            
+
         }
     }
 
@@ -150,10 +175,10 @@ public class PlayerController : MonoBehaviour
             bouncePadActive = false;
             ableToTrigger = false;
         }
-        if (((1 << collision.gameObject.layer) & climbingLayer) != 0 )
+        if (((1 << collision.gameObject.layer) & climbingLayer) != 0)
         {
             playerMovement.allowedVerticalInput = false;
-            
+
         }
     }
 
